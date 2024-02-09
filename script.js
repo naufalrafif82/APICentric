@@ -1,22 +1,28 @@
-const formToken = document.getElementById("form-token");
-const result = document.getElementById("result");
+const axios = require("axios");
 
-formToken.addEventListener("submit", async (event) => {
-    event.preventDefault();
+const username = "Administrator";
+const password = "Bu$An@Pr0dUct!On";
+const token = "SecurityTokenURL=centric://_CS_SecurityToken/0992375b-3741-4fda-a379-6c2dd77669ed";
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+const url = "https://busana-prod.centricsoftware.com/csi-requesthandler/api/v2/styles/C8922755";
 
-    const data = {
-        username,
-        password,
-    };
+const headers = {
+    Authorization: `Bearer ${token}`,
+};
 
-    try {
-        const response = await axios.post("https://busana-prod.centricsoftware.com/csi-requesthandler/api/v2/session", data);
-        const token = response.data.token;
-        result.textContent = `Token: ${token}`;
-    } catch (error) {
-        result.textContent = `Error: ${error.message}`;
-    }
-});
+axios
+    .get(url, {
+        headers,
+    })
+    .then((response) => {
+        const data = response.data;
+        // Parsing data XML
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data, "text/xml");
+        // Menampilkan hasil
+        const resultElement = document.getElementById("result");
+        resultElement.innerHTML = xmlDoc.outerHTML;
+    })
+    .catch((error) => {
+        console.error(error);
+    });
