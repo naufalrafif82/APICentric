@@ -1,28 +1,12 @@
-const axios = require("axios");
-
-const username = "username";
-const password = "password";
-const token = "token";
-
-const url = "https://api.example.com/data.xml";
-
-const headers = {
-    Authorization: `Bearer ${token}`,
-};
-
-axios
-    .get(url, {
-        headers,
-    })
-    .then((response) => {
-        const data = response.data;
-        // Parsing data XML
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data, "text/xml");
-        // Menampilkan hasil
-        const resultElement = document.getElementById("result");
-        resultElement.innerHTML = xmlDoc.outerHTML;
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET Data XML API dengan Axios</title>
+</head>
+<body>
+    <h1>GET Data XML API dengan Axios</h1>
+    <div id="result"></div>
+</body>
+</html>
