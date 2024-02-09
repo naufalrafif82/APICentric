@@ -1,28 +1,28 @@
-const axios = require("axios");
 
-const username = "Administrator";
-const password = "Bu$An@Pr0dUct!On";
-const token = "SecurityTokenURL=centric://_CS_SecurityToken/0992375b-3741-4fda-a379-6c2dd77669ed";
+import axios from 'axios';
 
-const url = "https://busana-prod.centricsoftware.com/csi-requesthandler/api/v2/styles/C8922755";
+const url = 'https://busana-prod.centricsoftware.com/csi-requesthandler/api/v2/session';
 
-const headers = {
-    Authorization: `Bearer ${token}`,
-};
+const form = document.getElementById('login-form');
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-axios
-    .get(url, {
-        headers,
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  const data = {
+    username,
+    password,
+  };
+
+  axios.post(url, data)
+    .then(function (response) {
+      // Berhasil!
+      const token = response.data.token;
+      document.getElementById('token').textContent = token;
     })
-    .then((response) => {
-        const data = response.data;
-        // Parsing data XML
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data, "text/xml");
-        // Menampilkan hasil
-        const resultElement = document.getElementById("result");
-        resultElement.innerHTML = xmlDoc.outerHTML;
-    })
-    .catch((error) => {
-        console.error(error);
+    .catch(function (error) {
+      // Gagal!
+      document.getElementById('error-message').textContent = error.message;
     });
+});
