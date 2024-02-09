@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link rel="stylesheet" href="style.css">
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST API untuk Mendapatkan Token</title>
 </head>
 <body>
-	<script src="script.js"></script>
-	<h1>Login</h1>
-	<form id="login-form">
-		<input type="text" id="username" placeholder="Username">
-		<input type="password" id="password" placeholder="Password">
-		<button type="submit">Login</button>
-	</form>
-	<p id="token"></p>
-	<p id="error-message"></p>
+    <h1>POST API untuk Mendapatkan Token</h1>
+    <form id="form-token">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <button type="submit">Dapatkan Token</button>
+    </form>
+    <div id="result"></div>
 </body>
 </html>
