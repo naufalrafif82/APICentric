@@ -1,28 +1,32 @@
-
-//import axios from 'axios';
-
-const url = 'https://busana-prod.centricsoftware.com/csi-requesthandler/api/v2/session';
-
-const form = document.getElementById('login-form');
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-
+window.onload = function() {
+  const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
+  const targetUrl = 'https://busana-test.centricsoftware.com/csi-requesthandler/api/v2/session';
   const data = {
-    username,
-    password,
+    username: 'Administrator',
+    password: 'P(}7PY$^%tLJvrDM'
   };
+  
+  fetch(corsAnywhereUrl + targetUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    displayResponse(data);
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error.message);
+  });
+};
 
-  axios.post(url, data)
-    .then(function (response) {
-      // Berhasil!
-      const token = response.data.token;
-      document.getElementById('token').textContent = token;
-    })
-    .catch(function (error) {
-      // Gagal!
-      document.getElementById('error-message').textContent = error.message;
-    });
-});
+function displayResponse(responseData) {
+  document.getElementById('responseContent').innerText = JSON.stringify(responseData, null, 2);
+}
